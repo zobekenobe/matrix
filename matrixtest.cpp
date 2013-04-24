@@ -85,5 +85,12 @@ int main(int argc, char* args[])
     child1->printMatrix();
     cout<<endl<<endl;
 
+    cout<<"mul test"<<endl;
+    Matrix<double> mulres(3, 3);
+    mulres = m.multiple(m_T, mulres);
+    mulres.printMatrix();
+
+    mulres.writeCSV("haha");
+
     return 0;
 }

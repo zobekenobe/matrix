@@ -2,6 +2,8 @@
 #include <cstdlib>
 //#include "random.h"
 #include <iostream>
+#include <fstream>
+#include <string>
 using namespace std;
 
 template<typename T>
@@ -133,7 +135,7 @@ class Matrix
             return re;
         }
 
-        Matrix<T>& multiple(const Matrix<T>& y, Matrix<T>& res)
+        Matrix<T>& multiple(const Matrix<T>& y, Matrix<T>& res) const
         {
             for(int i=0; i<rows; i++)
                 for(int j=0; j<y.columns; j++)
@@ -158,6 +160,29 @@ class Matrix
                 }
                 cout<<endl;
             }
+        }
+
+        void writeCSV(const string& filename="output")
+        {
+            fstream fs;
+            string fname = filename+".csv";
+            fs.open(fname.c_str(), fstream::out|fstream::trunc);
+            if(!fs)
+            {
+                cout<<"create file failure: "<<filename<<endl;
+                return;
+            }
+            int i, j;
+            for(i=0; i<rows; i++)
+            {
+                for(j=0; j<columns-1; j++)
+                {
+                    fs<<getElement(i, j)<<",";
+                }
+                fs<<getElement(i, j)<<endl;
+            }
+            fs.close();
+            cout<<"create file successfully: "<<filename<<endl;
         }
 
         /*****************************************************
