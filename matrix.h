@@ -133,6 +133,21 @@ class Matrix
             return re;
         }
 
+        Matrix<T>& multiple(const Matrix<T>& y, Matrix<T>& res)
+        {
+            for(int i=0; i<rows; i++)
+                for(int j=0; j<y.columns; j++)
+                {
+                    T tmp = 0;
+                    for(int k=0; k<columns; k++)
+                    {
+                        tmp += element[i*columns+k] * y.element[k*y.columns+j];
+                    }
+                    res.element[i*res.columns+j] = tmp;
+                }
+            return res;    
+        }
+
         void printMatrix()
         {
             for(int i=0; i<rows; i++)
