@@ -3,7 +3,7 @@
 
 int main(int argc, char* args[])
 {
-    cout<<"init matrix"<<endl;
+    cout << "init matrix" << endl;
     Matrix<double> m(3, 4);
     m.getRandomValues();
     m.printMatrix();
