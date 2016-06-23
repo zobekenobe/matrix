@@ -4,15 +4,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include<cstring>
 using namespace std;
 
 template<typename T>
-void swap(T* x, T* y)
-{
-    T tmp = *x;
-    *x = *y;
-    *y = tmp;
-}
+void swap(T& x, T& y)
+{T temp  = x;x = y;y = temp;}
 
 //low and high both are positive
 int getRandomInt(int low, int high)
@@ -50,14 +47,27 @@ class Matrix
                 element[i] = 0;
         }
 
-        Matrix(Matrix<T>& m)
+      /*  Matrix(Matrix<T>& m)
         {
             rows = m.rows;
             columns = m.columns;
             element = new T[rows * columns];
             for(int i=0; i<rows*columns; i++)
                 element[i] = m.element[i];
-        }
+        }*/
+         Matrix(const Matrix& m):rows(m.rows),columns(m.columns),element(new int[m.rows*m.columns])
+         {
+             memcpy(element, m.element, rows*columns);
+         }
+         
+         Matrix(Matrix&& m):rows(0),columns(0),elements(nullptr)
+         {
+             rows = move(m.rows);
+             columns = move(m.columns);
+             element = move(m.element);
+             
+             m.rows {};m.columns {};m.element = nullptr;
+         }
 
         //m is a column vector.
         /*Matrix(Matrix<T>& m, int r, int v):rows(r), columns(v)
